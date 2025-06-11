@@ -10,19 +10,23 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
-            steps {
-                sh 'mvn install'
+        stage( 'Build & Analisys' ) {
+            withSonarQubeEnv( 'My SonarQube Server' ) {
+                sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=java'
             }
         }
-        stage('Testing') {
+
+        stage( 'Testing' ) {
             steps {
                 sh 'mvn test'
             }
         }
-        stage('Packaging') {
+
+        stage( 'Analisys' ) {
             steps {
-                sh 'mvn package'
+                timeout( time: 1, unit: 'HOURS' ) {
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
     }
