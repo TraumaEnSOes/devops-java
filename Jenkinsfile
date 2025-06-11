@@ -11,8 +11,10 @@ pipeline {
 
     stages {
         stage( 'Build & Analisys' ) {
-            withSonarQubeEnv( 'My SonarQube Server' ) {
-                sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=java'
+            steps {
+                withSonarQubeEnv( 'My SonarQube Server' ) {
+                    sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=java'
+                }
             }
         }
 
