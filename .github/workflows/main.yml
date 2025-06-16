@@ -23,5 +23,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: build_job
     steps:
+      - uses: actions/checkout@v4
       - name: Ejecutar los tests
       - run: mvn test
