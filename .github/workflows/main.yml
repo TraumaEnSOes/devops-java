@@ -25,4 +25,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Ejecutar los tests
-      - run: mvn test
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          architecture: x86
+      - run: mvn install test
